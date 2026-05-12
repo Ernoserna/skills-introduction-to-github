@@ -1,0 +1,83 @@
+name: Snyk Test
+
+on:
+  workflow_call:
+    secrets:
+      SNYK_TOKEN:
+        required: true
+        description: 'Snyk authentication token'
+      SNYK_ORG_ID:
+        required: false
+        description: 'Snyk organization ID'
+      TELEGRAM_TOKEN_PROD:
+        required: false
+        description: 'Telegram bot token'
+      TELEGRAM_CHAT_PROD:
+        required: false
+        description: 'Telegram chat ID'
+
+jobs:
+  snyk-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Verificar variables de Snyk y Telegram
+        run: |
+          echo "========================================="
+          echo "📦 VERIFICACIÓN DE VARIABLES"
+          echo "========================================="
+          
+          echo ""
+          echo "🔐 SNYK_TOKEN:"
+          if [ -n "${{ secrets.SNYK_TOKEN }}" ]; then
+            echo "   ✅ Existe"
+            echo "   📏 Longitud: ${#SNYK_TOKEN} caracteres"
+          else
+            echo "   ❌ NO EXISTE"
+            echo "   📏 Longitud: 0 caracteres"
+          fi
+          
+          echo ""
+          echo "🏢 SNYK_ORG_ID:"
+          if [ -n "${{ secrets.SNYK_ORG_ID }}" ]; then
+            echo "   ✅ Existe"
+            echo "   📏 Longitud: ${#SNYK_ORG_ID} caracteres"
+            echo "   📝 Valor: ${{ secrets.SNYK_ORG_ID }}"
+          else
+            echo "   ⚠️ NO EXISTE (opcional)"
+            echo "   📏 Longitud: 0 caracteres"
+          fi
+          
+          echo ""
+          echo "📱 TELEGRAM_TOKEN_PROD:"
+          if [ -n "${{ secrets.TELEGRAM_TOKEN_PROD }}" ]; then
+            echo "   ✅ Existe"
+            echo "   📏 Longitud: ${#TELEGRAM_TOKEN_PROD} caracteres"
+          else
+            echo "   ⚠️ NO EXISTE (opcional)"
+            echo "   📏 Longitud: 0 caracteres"
+          fi
+          
+          echo ""
+          echo "💬 TELEGRAM_CHAT_PROD:"
+          if [ -n "${{ secrets.TELEGRAM_CHAT_PROD }}" ]; then
+            echo "   ✅ Existe"
+            echo "   📏 Longitud: ${#TELEGRAM_CHAT_PROD} caracteres"
+            echo "   📝 Valor: ${{ secrets.TELEGRAM_CHAT_PROD }}"
+          else
+            echo "   ⚠️ NO EXISTE (opcional)"
+            echo "   📏 Longitud: 0 caracteres"
+          fi
+          
+          echo ""
+          echo "========================================="
+          echo "📁 CONTEXTO DEL REPOSITORIO"
+          echo "========================================="
+          echo "📂 Repositorio: ${{ github.repository }}"
+          echo "🌿 Rama: ${{ github.ref_name }}"
+          echo "🔖 Commit: ${{ github.sha }}"
+          echo "👤 Actor: ${{ github.actor }}"
+          echo "========================================="
+          
+          echo ""
+          echo "✅ VERIFICACIÓN COMPLETADA"
