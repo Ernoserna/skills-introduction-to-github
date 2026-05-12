@@ -1,8 +1,21 @@
 name: Deploy and Security Pipeline
 
 on:
-  push:
-    branches: [main]
+  workflow_call:
+    secrets:
+      SNYK_TOKEN:
+        required: true
+        description: 'Snyk authentication token'
+      SNYK_ORG_ID:
+        required: false
+        description: 'Snyk organization ID'
+      TELEGRAM_TOKEN_PROD:
+        required: false
+        description: 'Telegram bot token'
+      TELEGRAM_CHAT_PROD:
+        required: false
+        description: 'Telegram chat ID'
+
 
 jobs:
   deploy-api:
