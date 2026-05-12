@@ -2,27 +2,13 @@ name: Deploy and Security Pipeline
 
 on:
   workflow_call:
-    secrets:
-      SNYK_TOKEN:
-        required: true
-        description: 'Snyk authentication token'
-      SNYK_ORG_ID:
-        required: false
-        description: 'Snyk organization ID'
-      TELEGRAM_TOKEN_PROD:
-        required: false
-        description: 'Telegram bot token'
-      TELEGRAM_CHAT_PROD:
-        required: false
-        description: 'Telegram chat ID'
 
-
-jobs:
+ jobs:
   deploy-api:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🚀 Desplegando i/api:production..."
-      # (Pasos de deploy aquí)
+      # (Pasos de deploy aquí...)
       - run: echo "✅ API en producción."
 
   deploy-web:
