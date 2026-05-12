@@ -19,7 +19,12 @@ on:
 jobs:
   snyk-test:
     runs-on: ubuntu-latest
-    
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      SNYK_ORG_ID: ${{ secrets.SNYK_ORG_ID }}
+      TELEGRAM_TOKEN_PROD: ${{ secrets.TELEGRAM_TOKEN_PROD }}
+      TELEGRAM_CHAT_PROD: ${{ secrets.TELEGRAM_CHAT_PROD }}
+
     steps:
       - name: Verificar variables de Snyk y Telegram
         run: |
@@ -29,7 +34,7 @@ jobs:
           
           echo ""
           echo "🔐 SNYK_TOKEN:"
-          if [ -n "${{ secrets.SNYK_TOKEN }}" ]; then
+          if [ -n "$SNYK_TOKEN" ]; then
             echo "   ✅ Existe"
             echo "   📏 Longitud: ${#SNYK_TOKEN} caracteres"
           else
@@ -39,10 +44,10 @@ jobs:
           
           echo ""
           echo "🏢 SNYK_ORG_ID:"
-          if [ -n "${{ secrets.SNYK_ORG_ID }}" ]; then
+          if [ -n "$SNYK_ORG_ID" ]; then
             echo "   ✅ Existe"
             echo "   📏 Longitud: ${#SNYK_ORG_ID} caracteres"
-            echo "   📝 Valor: ${{ secrets.SNYK_ORG_ID }}"
+            echo "   📝 Valor: $SNYK_ORG_ID"
           else
             echo "   ⚠️ NO EXISTE (opcional)"
             echo "   📏 Longitud: 0 caracteres"
@@ -50,7 +55,7 @@ jobs:
           
           echo ""
           echo "📱 TELEGRAM_TOKEN_PROD:"
-          if [ -n "${{ secrets.TELEGRAM_TOKEN_PROD }}" ]; then
+          if [ -n "$TELEGRAM_TOKEN_PROD" ]; then
             echo "   ✅ Existe"
             echo "   📏 Longitud: ${#TELEGRAM_TOKEN_PROD} caracteres"
           else
@@ -60,10 +65,10 @@ jobs:
           
           echo ""
           echo "💬 TELEGRAM_CHAT_PROD:"
-          if [ -n "${{ secrets.TELEGRAM_CHAT_PROD }}" ]; then
+          if [ -n "$TELEGRAM_CHAT_PROD" ]; then
             echo "   ✅ Existe"
             echo "   📏 Longitud: ${#TELEGRAM_CHAT_PROD} caracteres"
-            echo "   📝 Valor: ${{ secrets.TELEGRAM_CHAT_PROD }}"
+            echo "   📝 Valor: $TELEGRAM_CHAT_PROD"
           else
             echo "   ⚠️ NO EXISTE (opcional)"
             echo "   📏 Longitud: 0 caracteres"
